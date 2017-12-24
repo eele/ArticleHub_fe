@@ -14,7 +14,7 @@
         </el-input>
         <el-button class="rightButton" type="primary" round icon="el-icon-edit">写文章</el-button>
         <el-button id="userButton" class="rightButton" round>
-          <img src="./../assets/people_fill.svg" height="20px" width="20px" />
+          <img src="./../assets/user/people_fill.png" height="20px" width="20px" />
         </el-button>
         <!-- <el-button-group class="rightButton">
             <el-button type="primary" plain><b>登录</b></el-button>
@@ -56,6 +56,10 @@ export default {
 </script>
 
 <style>
+#topbar {
+  min-width: 863px;
+}
+
 .el-main {
   padding: 0px;
 }

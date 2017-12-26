@@ -1,7 +1,10 @@
 <template>
 <div id="app">
+  <loginDialog :loginDialogPopup="loginDialogPopup"/>
   <el-container>
-    <el-header><topbar/></el-header>
+    <el-header>
+      <topbar :loginDialogPopup="loginDialogPopup"/>
+    </el-header>
     <el-main>
         <el-row>
           <el-col :span="8"><authors/></el-col>
@@ -16,10 +19,16 @@
 import topbar from './common/topbar.vue'
 import authors from './home/list/authorList.vue'
 import articles from './home/list/articleList.vue'
+import loginDialog from './common/loginDialog/loginDialog.vue'
 export default {
   name: 'app',
   components: {
-    topbar, authors, articles
+    topbar, authors, articles, loginDialog
+  },
+  data() {
+    return {
+      loginDialogPopup: false
+    }
   }
 }
 </script>

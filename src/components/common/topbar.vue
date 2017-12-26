@@ -10,11 +10,11 @@
         <el-menu-item v-for="item in items" :key="item.index" :index="item.index">
           <b>{{ item.name }}</b>
         </el-menu-item>
-        <el-input placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
+        <el-input class="searchBox" placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
         </el-input>
         <el-button class="rightButton" type="primary" round icon="el-icon-edit">写文章</el-button>
-        <el-button id="userButton" class="rightButton" round>
-          <img src="./../assets/user/people_fill.png" height="20px" width="20px" />
+        <el-button id="userButton" class="rightButton" round @click="">
+          <img src="./../../assets/user/people_fill.png" height="20px" width="20px" />
         </el-button>
       </el-menu>
     </el-main>
@@ -26,6 +26,7 @@
 export default {
   data() {
     return {
+      loginDialogPopup: false,
       activeIndex: '1',
       items: [{
           index: '1',
@@ -70,7 +71,7 @@ export default {
   padding: 20px;
 }
 
-.el-input {
+.searchBox {
   float: left;
   margin-top: 10px;
   margin-left: 20px;
@@ -79,7 +80,7 @@ export default {
   outline: none;
 }
 
-.el-input__inner {
+.searchBox > .el-input__inner {
   border-radius: 20px;
   background-color: #e3f2ff
 }

@@ -21,12 +21,10 @@
     <el-tag size="mini">{{ articleInfo.category }}</el-tag>&nbsp;&nbsp;
     <span class="icon-eye" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ articleInfo.reading }}</b>
-    </span>
-    &nbsp;&nbsp;
+    </span> &nbsp;&nbsp;
     <span class="icon-comments" style="font-size: 12px;color: #b9b7b7;">
         <b style="font-size: 14px">&nbsp;{{ articleInfo.commentNum }}</b>
-    </span>
-    &nbsp;&nbsp;
+    </span> &nbsp;&nbsp;
     <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ articleInfo.collection }}</b>
     </span>
@@ -80,11 +78,11 @@ p::after {
 
 @font-face {
   font-family: 'icomoon';
-  src: url('./../../assets/fonts/icomoon.eot?q9qu96');
-  src: url('./../../assets/fonts/icomoon.eot?q9qu96#iefix') format('embedded-opentype'),
-  url('./../../assets/fonts/icomoon.ttf?q9qu96') format('truetype'),
-  url('./../../assets/fonts/icomoon.woff?q9qu96') format('woff'),
-  url('./../../assets/fonts/icomoon.svg?q9qu96#icomoon') format('svg');
+  src: url('./../../../assets/fonts/icomoon.svg?q9qu96');
+  src: url('./../../../assets/fonts/icomoon.eot?q9qu96#iefix') format('embedded-opentype'),
+  url('./../../../assets/fonts/icomoon.ttf?q9qu96') format('truetype'),
+  url('./../../../assets/fonts/icomoon.woff?q9qu96') format('woff'),
+  url('./../../../assets/fonts/icomoon.svg?q9qu96#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }

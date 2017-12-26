@@ -6,7 +6,7 @@
     <el-input placeholder="密码" v-model="password" clearable></el-input>
   </div>
   <div class="button">
-    <el-button type="primary" @click="loginDialogPopup = false">
+    <el-button type="primary" @click="login">
       <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
     </el-button>
   </div>
@@ -14,7 +14,25 @@
 </template>
 
 <script>
-export default {}
+import store from './../../../store/store.js'
+import {
+  mapMutations
+} from 'vuex';
+export default {
+  store,
+  data() {
+    return {
+      username: '',
+      password: ''
+    };
+  },
+  methods: {
+    ...mapMutations(['switchLoginDialog']),
+    login: function() {
+      this.switchLoginDialog();
+    }
+  }
+}
 </script>
 
 <style>

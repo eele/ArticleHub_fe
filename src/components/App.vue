@@ -1,15 +1,19 @@
 <template>
 <div id="app">
-  <loginDialog :loginDialogPopup="loginDialogPopup"/>
+  <loginDialog/>
   <el-container>
     <el-header>
-      <topbar :loginDialogPopup="loginDialogPopup"/>
+      <topbar/>
     </el-header>
     <el-main>
-        <el-row>
-          <el-col :span="8"><authors/></el-col>
-          <el-col :span="16"><articles/></el-col>
-        </el-row>
+      <el-row>
+        <el-col :span="8">
+          <authors/>
+        </el-col>
+        <el-col :span="16">
+          <articles/>
+        </el-col>
+      </el-row>
     </el-main>
   </el-container>
 </div>
@@ -23,12 +27,10 @@ import loginDialog from './common/loginDialog/loginDialog.vue'
 export default {
   name: 'app',
   components: {
-    topbar, authors, articles, loginDialog
-  },
-  data() {
-    return {
-      loginDialogPopup: false
-    }
+    topbar,
+    authors,
+    articles,
+    loginDialog
   }
 }
 </script>

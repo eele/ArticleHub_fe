@@ -5,15 +5,14 @@
       <div class="logo">ArticleHub</div>
     </el-aside>
     <el-main>
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
-      @select="handleSelect" background-color="#bedcfb" text-color="#0075ff" active-text-color="#3300ff">
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#bedcfb" text-color="#0075ff" active-text-color="#3300ff">
         <el-menu-item v-for="item in items" :key="item.index" :index="item.index">
           <b>{{ item.name }}</b>
         </el-menu-item>
         <el-input class="searchBox" placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
         </el-input>
         <el-button class="rightButton" type="primary" round icon="el-icon-edit">写文章</el-button>
-        <el-button id="userButton" class="rightButton" round @click="">
+        <el-button id="userButton" class="rightButton" round @click="switchLoginDialog">
           <img src="./../../assets/user/people_fill.png" height="20px" width="20px" />
         </el-button>
       </el-menu>
@@ -23,10 +22,16 @@
 </template>
 
 <script>
+import store from './../../store/store.js'
+import {
+  mapState,
+  mapMutations
+} from 'vuex';
 export default {
+  methods: mapMutations(['switchLoginDialog']),
+  store,
   data() {
     return {
-      loginDialogPopup: false,
       activeIndex: '1',
       items: [{
           index: '1',
@@ -43,11 +48,6 @@ export default {
       ],
       keyword: ''
     };
-  },
-  methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    }
   }
 }
 </script>
@@ -80,7 +80,7 @@ export default {
   outline: none;
 }
 
-.searchBox > .el-input__inner {
+.searchBox>.el-input__inner {
   border-radius: 20px;
   background-color: #e3f2ff
 }

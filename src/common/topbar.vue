@@ -16,10 +16,6 @@
         <el-button id="userButton" class="rightButton" round>
           <img src="./../assets/user/people_fill.png" height="20px" width="20px" />
         </el-button>
-        <!-- <el-button-group class="rightButton">
-            <el-button type="primary" plain><b>登录</b></el-button>
-            <el-button type="primary" plain><b>注册</b></el-button>
-        </el-button-group> -->
       </el-menu>
     </el-main>
   </el-container>
@@ -57,7 +53,7 @@ export default {
 
 <style>
 #topbar {
-  min-width: 863px;
+  min-width: 960px;
 }
 
 .el-main {
@@ -75,6 +71,7 @@ export default {
 }
 
 .el-input {
+  float: left;
   margin-top: 10px;
   margin-left: 20px;
   width: 300px;

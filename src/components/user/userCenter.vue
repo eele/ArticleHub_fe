@@ -12,11 +12,15 @@
             <el-tab-pane label="个人文章" name="articles">
                 <articleList label="" style="margin-top: -50px"/>
             </el-tab-pane>
-            <el-tab-pane label="最新评论" name="comments">配置管理</el-tab-pane>
+            <el-tab-pane label="最新评论" name="comments">
+                <commentList style="margin-top: -50px"/>
+            </el-tab-pane>
             <el-tab-pane label="收藏文章" name="favorites">
                 <articleList label="." style="margin-top: -50px"/>
             </el-tab-pane>
-            <el-tab-pane label="个人信息" name="info">用户管理</el-tab-pane>
+            <el-tab-pane label="个人信息" name="info">
+                <userInfo/>
+            </el-tab-pane>
           </el-tabs>
         </el-col>
         <el-col :span="8" style="margin-left: 20px">
@@ -31,9 +35,11 @@
 <script>
 import topbar from './../common/topbar.vue'
 import topArea from './topArea.vue'
-import topicList from './topicList.vue'
+import topicList from './topics/topicList.vue'
 import store from './../../store/store.js'
 import articleList from './../home/list/articleList.vue'
+import userInfo from './userInfo.vue'
+import commentList from './../common/comments/commentList.vue'
 import {
   mapState
 } from 'vuex';
@@ -42,7 +48,9 @@ export default {
     topbar,
     topicList,
     topArea,
-    articleList
+    articleList,
+    userInfo,
+    commentList
   },
   store,
   computed: {

@@ -1,50 +1,38 @@
 <template>
 <el-container style="text-align: left;">
-  <el-header style="height: 43px;" v-if="label=='最新文章' || label=='.'">
+  <el-header style="height: 43px;">
     <el-row>
-      <el-col :span="2">
+      <el-col :span="1">
         <span>
-          <img :src="articleInfo.portraitURL" width="32px" height="32px" style="border-radius: 16px;">
+          <img :src="commentInfo.portraitURL" width="32px" height="32px" style="border-radius: 16px;">
         </span>
       </el-col>
-      <el-col :span="22" style="margin-top: 3px;">
-        <span class="authorName">{{ articleInfo.authorName }}</span> &nbsp;&nbsp;&nbsp;
-        <span class="datetime">{{ articleInfo.datetime }}</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <el-button size="mini" round>取消收藏</el-button>
+      <el-col :span="23" style="margin-top: 3px;">
+        <span class="username">{{ commentInfo.username }}</span>&nbsp;&nbsp;
+        <span class="article">评论了&nbsp;&nbsp;{{ commentInfo.article }}</span>
       </el-col>
     </el-row>
   </el-header>
   <el-main style="text-align: left;">
-    <span class="title">{{ articleInfo.title }}</span>
-    <span class="content"><p>{{ articleInfo.content }}</p></span>
+    <span class="content"><p>{{ commentInfo.content }}</p></span>
   </el-main>
   <el-footer style="padding: 0px; height:auto;">
-    <el-tag size="mini">{{ articleInfo.topic }}</el-tag>&nbsp;&nbsp;
-    <span class="icon-eye" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
-        <b>&nbsp;{{ articleInfo.reading }}</b>
-    </span> &nbsp;&nbsp;
-    <span class="icon-comments" style="font-size: 12px;color: #b9b7b7;">
-        <b style="font-size: 14px">&nbsp;{{ articleInfo.commentNum }}</b>
-    </span> &nbsp;&nbsp;
     <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
-        <b>&nbsp;{{ articleInfo.collection }}</b>
+        <b>&nbsp;{{ commentInfo.agree }}</b>
     </span> &nbsp;&nbsp;&nbsp;
-    <span style="font-weight: 900;font-size: 14px;color: #b9b7b7;" v-if="label!='最新文章' && label!='.'">
-        <b>&nbsp;{{ articleInfo.datetime }}</b>
-    </span>
+    <span class="datetime">{{ commentInfo.datetime }}</span>
   </el-footer>
 </el-container>
 </template>
 
 <script>
 export default {
-  props: ['articleInfo', 'label']
+  props: ['commentInfo', 'label']
 }
 </script>
 
 <style>
-.authorName {
+.username, .article {
   font-size: 14px;
   font-family: Microsoft YaHei;
 }
@@ -52,12 +40,6 @@ export default {
 .datetime {
   font-size: 14px;
   color: #9c9999;
-}
-
-.title {
-  font-size: 20px;
-  font-family: Microsoft YaHei;
-  font-weight: 900;
 }
 
 p {

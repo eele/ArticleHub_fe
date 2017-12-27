@@ -1,13 +1,13 @@
 <template>
 <div>
   <el-table :data="followData" style="width: 280px">
-    <el-table-column label="我关注的专题">
+    <el-table-column label="我订阅的专题">
       <template slot-scope="scope">
               <topicItem :topicInfo="scope.row"/>
           </template>
     </el-table-column>
   </el-table>
-  <el-button plain class="moreButton">更多关注的专题 ></el-button>
+  <el-button plain class="moreButton">更多订阅的专题 ></el-button>
   <br>
   <el-table :data="followData" style="width: 280px">
     <el-table-column label="我创建的专题">

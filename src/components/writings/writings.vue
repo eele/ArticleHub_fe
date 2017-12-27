@@ -1,0 +1,95 @@
+<template>
+<div class="writings">
+  <loginDialog/>
+  <el-container>
+    <el-header>
+      <topbar/>
+    </el-header>
+    <el-container>
+      <el-aside>
+        <list/>
+      </el-aside>
+      <el-main>
+        <el-input v-model="input" placeholder="请输入标题"></el-input>
+        <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
+        </quill-editor>
+      </el-main>
+    </el-container>
+  </el-container>
+</div>
+</template>
+
+<script>
+import topbar from './../common/topbar.vue'
+import loginDialog from './../common/loginDialog/loginDialog.vue'
+import list from './list.vue'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import {
+  quillEditor
+} from 'vue-quill-editor'
+export default {
+  components: {
+    topbar,
+    loginDialog,
+    quillEditor,
+    list
+  },
+  data() {
+    return {
+      content: '',
+      editorOption: {
+        // some quill options
+      }
+    }
+  },
+  // manually control the data synchronization
+  // 如果需要手动控制数据同步，父组件需要显式地处理changed事件
+  methods: {
+    onEditorBlur(quill) {
+      console.log('editor blur!', quill)
+    },
+    onEditorFocus(quill) {
+      console.log('editor focus!', quill)
+    },
+    onEditorReady(quill) {
+      console.log('editor ready!', quill)
+    },
+    onEditorChange({
+      quill,
+      html,
+      text
+    }) {
+      console.log('editor change!', quill, html, text)
+      this.content = html
+    }
+  },
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill
+    }
+  },
+  mounted() {
+    console.log('this is current quill instance object', this.editor)
+  }
+}
+</script>
+
+<style>
+html,
+body,
+.writings,
+.el-container,
+.quill-editor,
+.el-main {
+  height: 100%;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+}
+
+.el-header {
+  padding: 0px;
+}
+</style>

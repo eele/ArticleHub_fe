@@ -5,9 +5,10 @@
       <div class="logo">ArticleHub</div>
     </el-aside>
     <el-main>
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#bedcfb" text-color="#0075ff" active-text-color="#3300ff">
-        <el-menu-item v-for="item in items" :key="item.index" :index="item.index">
-          <b>{{ item.name }}</b>
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
+      background-color="#bedcfb" text-color="#0075ff" active-text-color="#3300ff">
+        <el-menu-item v-for="(item, index) in items" :key="''+index" :index="''+index">
+          <b>{{ item }}</b>
         </el-menu-item>
         <el-input class="searchBox" placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
         </el-input>
@@ -32,20 +33,8 @@ export default {
   store,
   data() {
     return {
-      activeIndex: '1',
-      items: [{
-          index: '1',
-          name: '首页'
-        },
-        {
-          index: '2',
-          name: '专题'
-        },
-        {
-          index: '3',
-          name: '作者'
-        }
-      ],
+      activeIndex: '0',
+      items: ['首页', '专题', '作者'],
       keyword: ''
     };
   }

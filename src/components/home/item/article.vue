@@ -18,7 +18,7 @@
     <span class="content"><p>{{ articleInfo.content }}</p></span>
   </el-main>
   <el-footer style="padding: 0px; height:auto;">
-    <el-tag size="mini">{{ articleInfo.category }}</el-tag>&nbsp;&nbsp;
+    <el-tag size="mini">{{ articleInfo.topic }}</el-tag>&nbsp;&nbsp;
     <span class="icon-eye" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ articleInfo.reading }}</b>
     </span> &nbsp;&nbsp;

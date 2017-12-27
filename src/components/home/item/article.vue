@@ -1,11 +1,11 @@
 <template>
 <el-container style="text-align: left;">
-  <el-header style="height: 43px;">
+  <el-header style="height: 43px;" v-if="label=='最新文章' || label=='.'">
     <el-row>
       <el-col :span="2">
         <span>
-            <img :src="articleInfo.portraitURL" width="32px" height="32px" style="border-radius: 16px;">
-          </span>
+          <img :src="articleInfo.portraitURL" width="32px" height="32px" style="border-radius: 16px;">
+        </span>
       </el-col>
       <el-col :span="22" style="margin-top: 3px;">
         <span class="authorName">{{ articleInfo.authorName }}</span> &nbsp;&nbsp;&nbsp;
@@ -27,6 +27,9 @@
     </span> &nbsp;&nbsp;
     <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ articleInfo.collection }}</b>
+    </span> &nbsp;&nbsp;&nbsp;
+    <span style="font-weight: 900;font-size: 14px;color: #b9b7b7;" v-if="label!='最新文章' && label!='.'">
+        <b>&nbsp;{{ articleInfo.datetime }}</b>
     </span>
   </el-footer>
 </el-container>
@@ -34,7 +37,7 @@
 
 <script>
 export default {
-  props: ['articleInfo']
+  props: ['articleInfo', 'label']
 }
 </script>
 

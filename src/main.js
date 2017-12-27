@@ -5,8 +5,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import store from './store/store.js'
 import VueRouter from "vue-router";
 
-import Writings from "./components/writings/writings.vue";
 import Home from "./components/home/home.vue";
+import Writings from "./components/writings/writings.vue";
+import UserCenter from "./components/user/userCenter.vue";
 
 Vue.use(VueRouter);
 Vue.use(ElementUI)
@@ -16,12 +17,16 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {
+      path: '/',
+      component: Home
+    },
+    {
       path: '/writings',
       component: Writings
     },
     {
-      path: '/',
-      component: Home
+      path: '/user',
+      component: UserCenter
     }
   ]
 })

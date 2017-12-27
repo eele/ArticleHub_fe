@@ -4,7 +4,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-  loginDialogShow: false
+  loginDialogShow: false,
+  userActiveTab: 'articles'
 }
 
 const mutations = {

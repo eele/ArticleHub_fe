@@ -1,5 +1,6 @@
 <template>
 <div id="topbar">
+  <loginDialog/>
   <el-container>
     <el-aside width="130px">
       <div class="logo">ArticleHub</div>
@@ -24,11 +25,15 @@
 
 <script>
 import store from './../../store/store.js'
+import loginDialog from './../common/loginDialog/loginDialog.vue'
 import {
   mapState,
   mapMutations
 } from 'vuex';
 export default {
+  components: {
+    loginDialog
+  },
   methods: mapMutations(['switchLoginDialog']),
   store,
   data() {

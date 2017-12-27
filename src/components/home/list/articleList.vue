@@ -1,8 +1,8 @@
 <template>
 <el-table :data="tableData" style="width: 100%">
-  <el-table-column label="最新文章">
+  <el-table-column :label="label">
     <template slot-scope="scope">
-        <articleCom :articleInfo="scope.row"/>
+        <articleCom :articleInfo="scope.row" :label="label"/>
     </template>
   </el-table-column>
 </el-table>
@@ -14,6 +14,7 @@ export default {
   components: {
     articleCom
   },
+  props: ['label'],
   data() {
     return {
       tableData: [{

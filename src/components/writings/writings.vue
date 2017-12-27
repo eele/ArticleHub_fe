@@ -1,6 +1,5 @@
 <template>
 <div class="writings">
-  <loginDialog/>
   <el-container>
     <el-header>
       <topbar/>
@@ -9,8 +8,8 @@
       <el-aside>
         <list/>
       </el-aside>
-      <el-main>
-        <el-input v-model="input" placeholder="请输入标题"></el-input>
+      <el-main class="editArea">
+        <el-input v-model="title" placeholder="请输入标题"></el-input>
         <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
         </quill-editor>
       </el-main>
@@ -21,7 +20,6 @@
 
 <script>
 import topbar from './../common/topbar.vue'
-import loginDialog from './../common/loginDialog/loginDialog.vue'
 import list from './list.vue'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -32,12 +30,12 @@ import {
 export default {
   components: {
     topbar,
-    loginDialog,
     quillEditor,
     list
   },
   data() {
     return {
+      title: '',
       content: '',
       editorOption: {
         // some quill options
@@ -91,5 +89,9 @@ body,
 
 .el-header {
   padding: 0px;
+}
+
+.editArea {
+  visibility: hidden;
 }
 </style>

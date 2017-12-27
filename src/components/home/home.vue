@@ -1,6 +1,5 @@
 <template>
 <div>
-  <loginDialog/>
   <el-container>
     <el-header>
       <topbar/>
@@ -11,7 +10,7 @@
           <authors/>
         </el-col>
         <el-col :span="16">
-          <articles/>
+          <articles label="最新文章"/>
         </el-col>
       </el-row>
     </el-main>
@@ -23,13 +22,11 @@
 import topbar from './../common/topbar.vue'
 import authors from './list/authorList.vue'
 import articles from './list/articleList.vue'
-import loginDialog from './../common/loginDialog/loginDialog.vue'
 export default {
   components: {
     topbar,
     authors,
-    articles,
-    loginDialog
+    articles
   }
 }
 </script>

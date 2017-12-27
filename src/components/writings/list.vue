@@ -1,6 +1,6 @@
 <template>
-<div>
-  <el-menu :unique-opened="uniqueOpened" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+<div style="height: 100%">
+  <el-menu :unique-opened="uniqueOpened" class="list el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
     <el-button class="newCategory" type="primary" icon="el-icon-circle-plus" plain>新建类别</el-button>
     <el-submenu :index="''+index" :key="''+index" v-for="(item, index) in articleList">
       <template slot="title">
@@ -66,6 +66,10 @@ export default {
 <style>
 .newCategory {
   width: 100%;
+}
+
+.list {
+  height: 100%;
 }
 
 .categoryOp {

@@ -4,7 +4,7 @@
     <el-button class="newCategory" type="primary" icon="el-icon-circle-plus" plain>新建类别</el-button>
     <el-submenu :index="''+index" :key="''+index" v-for="(item, index) in articleList">
       <template slot="title">
-        <i class="el-icon-document"></i>
+        <i class="el-icon-menu"></i>
         <span>{{ item.category }}</span>
         <el-dropdown class="categoryOp" @command="handleCommand">
           <span class="el-dropdown-link">

@@ -14,7 +14,12 @@
   </el-col>
   <el-col :span="4">
     <div class="follow">
-      <el-button type="text"><b>+ 关注</b></el-button>
+      <el-button type="text" v-if="label=='推荐作者'">
+        <b>+ 关注</b>
+      </el-button>
+      <el-button type="text" v-if="label!='推荐作者'">
+        <i class="el-icon-remove-outline"></i>
+      </el-button>
     </div>
   </el-col>
 </el-row>
@@ -22,7 +27,7 @@
 
 <script>
 export default {
-  props: ['authorInfo']
+  props: ['authorInfo', 'label']
 }
 </script>
 

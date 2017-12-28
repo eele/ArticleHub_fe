@@ -1,21 +1,23 @@
 <template>
 <div>
-  <el-table :data="tableData" style="width: 280px">
-    <el-table-column label="推荐作者">
+  <el-table :data="tableData" style="width: 100%">
+    <el-table-column :label="label">
       <template slot-scope="scope">
-          <author :authorInfo="scope.row"/>
+          <author :authorInfo="scope.row" :label="label"/>
       </template>
     </el-table-column>
   </el-table>
+  <el-button plain class="moreButton" v-if="label!='推荐作者'">更多关注的作者 ></el-button>
 </div>
 </template>
 
 <script>
-import author from './../item/author.vue'
+import author from './author.vue'
 export default {
   components: {
     author
   },
+  props: ['label'],
   data() {
     return {
       tableData: [{
@@ -35,3 +37,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.moreButton {
+  width: 100%;
+}
+</style>

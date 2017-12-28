@@ -1,25 +1,17 @@
 <template>
-<div class="writings">
-  <el-container>
-    <el-header>
-      <topbar/>
-    </el-header>
-    <el-container>
-      <el-aside>
-        <list/>
-      </el-aside>
-      <el-main class="editArea">
-        <el-input v-model="title" placeholder="请输入标题"></el-input>
-        <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
-        </quill-editor>
-      </el-main>
-    </el-container>
-  </el-container>
-</div>
+<el-container>
+  <el-aside>
+    <list/>
+  </el-aside>
+  <el-main class="editArea">
+    <el-input v-model="title" placeholder="请输入标题"></el-input>
+    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
+    </quill-editor>
+  </el-main>
+</el-container>
 </template>
 
 <script>
-import topbar from './../common/topbar.vue'
 import list from './list.vue'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -29,7 +21,6 @@ import {
 } from 'vue-quill-editor'
 export default {
   components: {
-    topbar,
     quillEditor,
     list
   },
@@ -85,10 +76,6 @@ body,
   overflow: hidden;
   padding: 0px;
   margin: 0px;
-}
-
-.el-header {
-  padding: 0px;
 }
 
 .editArea {

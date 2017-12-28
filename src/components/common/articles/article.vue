@@ -1,6 +1,6 @@
 <template>
 <el-container style="text-align: left;">
-  <el-header style="height: 43px;" v-if="label=='最新文章' || label=='.'">
+  <el-header style="height: 43px; padding-left:10px;" v-if="label=='热门文章' || label=='.'">
     <el-row>
       <el-col :span="2">
         <span>
@@ -11,7 +11,7 @@
         <span class="authorName">{{ articleInfo.authorName }}</span> &nbsp;&nbsp;&nbsp;
         <span class="datetime">{{ articleInfo.datetime }}</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <el-button size="mini" round>取消收藏</el-button>
+        <el-button size="mini" round v-if="label=='.'">取消收藏</el-button>
       </el-col>
     </el-row>
   </el-header>
@@ -30,7 +30,7 @@
     <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ articleInfo.collection }}</b>
     </span> &nbsp;&nbsp;&nbsp;
-    <span style="font-weight: 900;font-size: 14px;color: #b9b7b7;" v-if="label!='最新文章' && label!='.'">
+    <span style="font-weight: 900;font-size: 14px;color: #b9b7b7;" v-if="label!='热门文章' && label!='.'">
         <b>&nbsp;{{ articleInfo.datetime }}</b>
     </span>
   </el-footer>

@@ -1,13 +1,13 @@
 <template>
 <el-container style="text-align: left;">
-  <el-header style="height: 43px;">
+  <el-header style="height: 35px;padding: 0px;">
     <el-row>
-      <el-col :span="1">
+      <el-col :span="2">
         <span>
           <img :src="commentInfo.portraitURL" width="32px" height="32px" style="border-radius: 16px;">
         </span>
       </el-col>
-      <el-col :span="23" style="margin-top: 3px;">
+      <el-col :span="22" style="margin-top: 3px;">
         <span class="username">{{ commentInfo.username }}</span>&nbsp;&nbsp;
         <span class="article">评论了&nbsp;&nbsp;{{ commentInfo.article }}</span>
       </el-col>

@@ -7,7 +7,7 @@
       </el-col>
       <el-col :span="21">
         <div style="height: 5px;"></div>
-        <span class="username">{{ name }}</span>
+        <span class="UserName">{{ name }}</span>
       </el-col>
     </el-row>
   </el-header>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style>
-.username {
+.UserName {
   font-size: 25px;
   font-weight: 900;
   margin-left: 20px;

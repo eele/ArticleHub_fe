@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import articleCom from './../item/article.vue'
+import articleCom from './article.vue'
 export default {
   components: {
     articleCom

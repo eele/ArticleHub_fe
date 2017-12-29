@@ -1,13 +1,13 @@
 <template>
 <div>
   <el-table :data="followData" style="width: 100%">
-    <el-table-column label="我订阅的专题">
+    <el-table-column :label="label">
       <template slot-scope="scope">
               <topicItem :topicInfo="scope.row"/>
           </template>
     </el-table-column>
   </el-table>
-  <el-button plain class="moreButton">更多订阅的专题 ></el-button>
+  <el-button plain class="moreButton" v-if="label=='我订阅的专题'">更多订阅的专题 ></el-button>
 </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
   components: {
     topicItem
   },
+  props: ['label'],
   data() {
     return {
       followData: [{

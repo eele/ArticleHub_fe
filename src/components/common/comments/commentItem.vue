@@ -9,7 +9,7 @@
       </el-col>
       <el-col :span="22" style="margin-top: 3px;">
         <span class="username">{{ commentInfo.username }}</span>&nbsp;&nbsp;
-        <span class="article">评论了&nbsp;&nbsp;{{ commentInfo.article }}</span>
+        <span class="article" v-if="mode!='reading'">评论了&nbsp;&nbsp;{{ commentInfo.article }}</span>
       </el-col>
     </el-row>
   </el-header>
@@ -17,9 +17,13 @@
     <span class="content"><p>{{ commentInfo.content }}</p></span>
   </el-main>
   <el-footer style="padding: 0px; height:auto;">
-    <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
+
+    <el-button type="text">
+      <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ commentInfo.agree }}</b>
-    </span> &nbsp;&nbsp;&nbsp;
+      </span>
+    </el-button>
+    &nbsp;&nbsp;&nbsp;
     <span class="datetime">{{ commentInfo.datetime }}</span>
   </el-footer>
 </el-container>
@@ -27,12 +31,13 @@
 
 <script>
 export default {
-  props: ['commentInfo', 'label']
+  props: ['commentInfo', 'mode']
 }
 </script>
 
 <style>
-.username, .article {
+.username,
+.article {
   font-size: 14px;
   font-family: Microsoft YaHei;
 }
@@ -45,22 +50,7 @@ export default {
 p {
   position: relative;
   line-height: 20px;
-  max-width: 620px;
-  max-height: 60px;
-  overflow: hidden;
-}
-
-p::after {
-  content: "...";
-  font-weight: 900;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding-left: 40px;
-  background: -webkit-linear-gradient(left, transparent, #fff 55%);
-  background: -o-linear-gradient(right, transparent, #fff 55%);
-  background: -moz-linear-gradient(right, transparent, #fff 55%);
-  background: linear-gradient(to right, transparent, #fff 55%);
+  max-width: 660px;
 }
 
 @font-face {

@@ -19,7 +19,11 @@
       </el-tabs>
     </el-col>
     <el-col :span="8" style="margin-left: 20px">
-      <topicList/><br>
+      <el-card style="text-align:left" v-if="desc!=''">
+        <span>个人简介</span><br><br>
+        <span>{{ desc }}</span>
+      </el-card>
+      <topicList label="我订阅的专题" /><br>
       <authorList label="我关注的作者" />
       <br>
     </el-col>
@@ -29,7 +33,7 @@
 
 <script>
 import topArea from './topArea.vue'
-import topicList from './topics/topicList.vue'
+import topicList from './../common/topics/topicList.vue'
 import store from './../../store/store.js'
 import articleList from './../common/articles/articleList.vue'
 import userInfo from './userInfo.vue'
@@ -46,6 +50,11 @@ export default {
     userInfo,
     commentList,
     authorList
+  },
+  data() {
+    return {
+      desc: '个人简介个人简介个人简介个人简介个人简介个人简介'
+    }
   },
   store,
   computed: {

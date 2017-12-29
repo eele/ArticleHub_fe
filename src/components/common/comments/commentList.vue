@@ -2,7 +2,7 @@
 <el-table :data="tableData" style="width: 100%">
   <el-table-column>
     <template slot-scope="scope">
-        <commentItem :commentInfo="scope.row"/>
+        <commentItem :commentInfo="scope.row" :mode="mode"/>
     </template>
   </el-table-column>
 </el-table>
@@ -14,6 +14,7 @@ export default {
   components: {
     commentItem
   },
+  props: ['mode'],
   data() {
     return {
       tableData: [{

@@ -7,7 +7,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-button plain class="moreButton" v-if="label!='推荐作者'">更多关注的作者 ></el-button>
+  <el-button plain class="moreButton" v-if="label=='我关注的作者'">更多关注的作者 ></el-button>
 </div>
 </template>
 

@@ -14,7 +14,6 @@
 <script>
 import login from './login.vue'
 import reg from './reg.vue'
-import store from './../../../store/store.js'
 import {
   mapGetters,
   mapMutations
@@ -30,7 +29,6 @@ export default {
       }
     }
   },
-  store,
   methods: {
     ...mapGetters(['getLoginDialogState']),
     ...mapMutations(['switchLoginDialog'])

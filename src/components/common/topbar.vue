@@ -6,20 +6,27 @@
       <div class="logo">ArticleHub</div>
     </el-aside>
     <el-main>
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal"
-      background-color="#bedcfb" text-color="#0075ff" active-text-color="#3300ff"
-      @select="handleSelect">
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#bedcfb" text-color="#0075ff" active-text-color="#3300ff" @select="handleSelect">
         <el-menu-item v-for="item in items" :key="item.index" :index="item.index">
           <b>{{ item.name }}</b>
         </el-menu-item>
-        <el-input class="searchBox" placeholder="搜索" suffix-icon="el-icon-search"
-        v-model="keyword">
+        <el-input class="searchBox" placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
         </el-input>
-        <el-button class="rightButton" type="primary" round
-        icon="el-icon-edit" @click="write">写文章</el-button>
-        <el-button id="userButton" class="rightButton" round @click="switchLoginDialog">
+        <el-button class="rightButton" type="primary" round icon="el-icon-edit" @click="write">写文章</el-button>
+        <el-button id="userButton" class="rightButton" round @click="switchLoginDialog" v-show="getSessionUid()==null">
           <img src="./../../assets/user/people_fill.png" height="20px" width="20px" />
         </el-button>
+        <el-dropdown id="userButton2" v-show="getSessionUid()!=null" @command="handleCommand">
+          <el-button id="userButton" class="rightButton" round>
+            <img :src="portraitURL" height="40px" width="40px" style="margin-top: -6px;margin-left: -6px;border-radius: 20px" />
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="a">用户中心</el-dropdown-item>
+            <el-dropdown-item command="b">订阅的专题</el-dropdown-item>
+            <el-dropdown-item command="c">关注的作者</el-dropdown-item>
+            <el-dropdown-item command="d">注销</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-menu>
     </el-main>
   </el-container>
@@ -30,7 +37,7 @@
 import store from './../../store/store.js'
 import loginDialog from './../common/loginDialog/loginDialog.vue'
 import {
-  mapState,
+  mapGetters,
   mapMutations
 } from 'vuex';
 export default {
@@ -38,17 +45,37 @@ export default {
     loginDialog
   },
   methods: {
-    ...mapMutations(['switchLoginDialog']),
+    ...mapMutations(['switchLoginDialog', 'resetSessionUid']),
+    ...mapGetters(['getSessionUid']),
     handleSelect: function(key, keyPath) {
       switch (key) {
         case "/":
           location.href = "/";
           break;
         case "/authors":
-          location.href = "/authors";
+          location.href = "/authors?tab=1&pb=1&ps=10";
           break;
         case "/topics":
-          location.href = "/topics";
+          location.href = "/topics?tab=1&pb=1&ps=10";
+          break;
+        default:
+          break;
+      }
+    },
+    handleCommand: function(command) {
+      switch (command) {
+        case 'a':
+          location.href = "/user";
+          break;
+        case 'b':
+          location.href = "/topics?tab=2&pb=1&ps=10";
+          break;
+        case 'c':
+          location.href = "/authors?tab=2&pb=1&ps=10";
+          break;
+        case 'd':
+          this.resetSessionUid();
+          location.href = "/";
           break;
         default:
           break;
@@ -62,6 +89,7 @@ export default {
   data() {
     return {
       activeIndex: '',
+      portraitURL: '',
       items: [{
           index: '/',
           name: '首页'
@@ -73,14 +101,23 @@ export default {
         {
           index: '/authors',
           name: '作者'
-        }],
-        keyword: ''
-      };
-    },
-    created: function() {
-      this.activeIndex = location.pathname;
-    }
+        }
+      ],
+      keyword: ''
+    };
+  },
+  created: function() {
+    this.activeIndex = location.pathname;
+    var self = this;
+    this.$axios.get('/ArticleHub/user/uid/' + this.getSessionUid())
+      .then(function(response) {
+        self.portraitURL = response.data.data[0].portraitURL;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
+}
 </script>
 
 <style>
@@ -129,5 +166,12 @@ export default {
   height: 40px;
   width: 40px;
   padding: 4px;
+}
+
+#userButton2 {
+  height: 40px;
+  width: 40px;
+  right: 140px;
+  position: absolute;
 }
 </style>

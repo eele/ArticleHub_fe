@@ -1,6 +1,6 @@
 <template>
 <div style="height: 100%">
-  <el-container>
+  <el-container style="height: 100%">
     <el-header style="padding: 0px">
       <topbar/>
     </el-header>

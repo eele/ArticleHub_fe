@@ -15,7 +15,7 @@
     <el-input v-model="form.password"></el-input>
   </el-form-item>
   <el-form-item label="确认密码">
-    <el-input v-model="form.co_password"></el-input>
+    <el-input v-model="co_password"></el-input>
   </el-form-item>
   <el-form-item>
     <el-button type="primary" @click="onSubmit">保存修改</el-button>
@@ -24,22 +24,48 @@
 </template>
 
 <script>
+import qs from 'qs'
+import {
+  mapGetters
+} from 'vuex';
 export default {
   data() {
     return {
+      co_password: '',
       form: {
         username: '',
         email: '',
         desc: '',
-        password: '',
-        co_password: ''
+        password: ''
       }
     }
   },
   methods: {
-    onSubmit:function() {
-
+    ...mapGetters(['getSessionUid']),
+    onSubmit: function() {
+      var self = this;
+      this.$axios.put('/ArticleHub/user/uid/' + this.getSessionUid() + '?' + qs.stringify(this.form))
+        .then(function(response) {
+          self.$message({
+            message: '成功保存用户信息',
+            type: 'success'
+          });
+        })
+        .catch(function(error) {
+          self.$message.error('无法保存用户信息');
+          console.log(error);
+        });
     }
+  },
+  mounted: function() {
+    var self = this;
+    this.$axios.get('/ArticleHub/user/uid/' + this.getSessionUid())
+      .then(function(response) {
+        self.form = response.data.data[0];
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 }
 </script>

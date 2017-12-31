@@ -15,12 +15,18 @@ const mutations = {
     } else {
       state.loginDialogShow = true;
     }
+  },
+  resetSessionUid() {
+    // state.sessionUid = null;
   }
 }
 
 const getters = {
   getLoginDialogState(state) {
     return state.loginDialogShow;
+  },
+  getSessionUid() {
+    return '123';
   }
 }
 

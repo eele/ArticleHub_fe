@@ -1,10 +1,17 @@
 <template>
-<el-container>
+<el-container class="container">
   <el-aside>
     <list/>
   </el-aside>
   <el-main class="editArea">
-    <el-input v-model="title" placeholder="请输入标题"></el-input>
+    <el-row>
+      <el-col :span="20">
+        <el-input v-model="title" placeholder="请输入标题"></el-input>
+      </el-col>
+      <el-col :span="4">
+        &nbsp;<el-button type="primary">保存文章</el-button>
+      </el-col>
+    </el-row>
     <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
     </quill-editor>
   </el-main>
@@ -69,9 +76,9 @@ export default {
 html,
 body,
 .writings,
-.el-container,
+.container,
 .quill-editor,
-.el-main {
+.editArea {
   height: 100%;
   overflow: hidden;
   padding: 0px;
@@ -79,6 +86,6 @@ body,
 }
 
 .editArea {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 </style>

@@ -14,12 +14,10 @@
 </template>
 
 <script>
-import store from './../../../store/store.js'
 import {
   mapMutations
 } from 'vuex';
 export default {
-  store,
   data() {
     return {
       username: '',

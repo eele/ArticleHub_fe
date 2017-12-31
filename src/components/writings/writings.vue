@@ -6,13 +6,14 @@
   <el-main class="editArea">
     <el-row>
       <el-col :span="20">
-        <el-input v-model="title" placeholder="请输入标题"></el-input>
+        <el-input v-model="articleData.title" placeholder="请输入标题"></el-input>
       </el-col>
       <el-col :span="4">
-        &nbsp;<el-button type="primary">保存文章</el-button>
+        &nbsp;
+        <el-button type="primary" @click="save">保存文章</el-button>
       </el-col>
     </el-row>
-    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
+    <quill-editor v-model="articleData._content" ref="myQuillEditor" :options="editorOption">
     </quill-editor>
   </el-main>
 </el-container>
@@ -26,6 +27,9 @@ import 'quill/dist/quill.bubble.css'
 import {
   quillEditor
 } from 'vue-quill-editor'
+import {
+  mapGetters
+} from 'vuex';
 export default {
   components: {
     quillEditor,
@@ -33,24 +37,52 @@ export default {
   },
   data() {
     return {
-      title: '',
-      content: '',
+      articleData: {
+        title: '',
+        reading: '0',
+        authorid: this.getSessionUid(),
+        tid: null,
+        datetime: this.getNowFormatDate(),
+        _content: '',
+        _randomID: 'aid'
+      },
       editorOption: {
         // some quill options
       }
     }
   },
-  // manually control the data synchronization
-  // 如果需要手动控制数据同步，父组件需要显式地处理changed事件
   methods: {
-    onEditorBlur(quill) {
-      console.log('editor blur!', quill)
+    ...mapGetters(['getSessionUid']),
+    getNowFormatDate: function() {
+      var date = new Date();
+      var seperator1 = "-";
+      var seperator2 = ":";
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+        " " + date.getHours() + seperator2 + date.getMinutes() +
+        seperator2 + date.getSeconds();
+      return currentdate;
     },
-    onEditorFocus(quill) {
-      console.log('editor focus!', quill)
-    },
-    onEditorReady(quill) {
-      console.log('editor ready!', quill)
+    save: function() {
+      var self = this;
+      this.$axios.post('/ArticleHub/article', this.articleData)
+        .then(function(response) {
+          self.$message({
+            message: '已保存',
+            type: 'success'
+          });
+        })
+        .catch(function(error) {
+          self.$message.error('无法保存文章');
+          console.log(error);
+        });
     },
     onEditorChange({
       quill,
@@ -58,7 +90,7 @@ export default {
       text
     }) {
       console.log('editor change!', quill, html, text)
-      this.content = html
+      this._content = html
     }
   },
   computed: {

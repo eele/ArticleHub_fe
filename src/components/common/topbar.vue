@@ -10,7 +10,7 @@
         <el-menu-item v-for="item in items" :key="item.index" :index="item.index">
           <b>{{ item.name }}</b>
         </el-menu-item>
-        <el-input class="searchBox" placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
+        <el-input @keyup.native.13="search()" class="searchBox" placeholder="搜索" suffix-icon="el-icon-search" v-model="keyword">
         </el-input>
         <el-button class="rightButton" type="primary" round icon="el-icon-edit" @click="write">写文章</el-button>
         <el-button id="userButton" class="rightButton" round @click="switchLoginDialog" v-show="getSessionUid()==null">
@@ -83,6 +83,9 @@ export default {
     },
     write: function() {
       location.href = "/writings";
+    },
+    search: function() {
+      location.href = "/search?tab=1&pb=1&ps=10&q=%25" + this.keyword + "%25";
     }
   },
   store,

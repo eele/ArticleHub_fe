@@ -1,9 +1,9 @@
 <template>
 <el-container class="container">
   <el-aside>
-    <list/>
+    <list ref="list" v-if="listShow" v-on:message="recieveMessage" />
   </el-aside>
-  <el-main class="editArea">
+  <el-main class="editArea" v-if="areaShow">
     <el-row>
       <el-col :span="20">
         <el-input v-model="articleData.title" placeholder="请输入标题"></el-input>
@@ -13,7 +13,7 @@
         <el-button type="primary" @click="save">保存文章</el-button>
       </el-col>
     </el-row>
-    <quill-editor v-model="articleData._content" ref="myQuillEditor" :options="editorOption">
+    <quill-editor v-model="articleData._content" ref="myQuillEditor">
     </quill-editor>
   </el-main>
 </el-container>
@@ -37,6 +37,8 @@ export default {
   },
   data() {
     return {
+      areaShow: false,
+      listShow: true,
       articleData: {
         title: '',
         reading: '0',
@@ -45,14 +47,16 @@ export default {
         datetime: this.getNowFormatDate(),
         _content: '',
         _randomID: 'aid'
-      },
-      editorOption: {
-        // some quill options
       }
     }
   },
   methods: {
     ...mapGetters(['getSessionUid']),
+    recieveMessage: function(articleData) {
+      this.articleData = articleData;
+      this.areaShow = false;
+      this.areaShow = true;
+    },
     getNowFormatDate: function() {
       var date = new Date();
       var seperator1 = "-";
@@ -72,17 +76,35 @@ export default {
     },
     save: function() {
       var self = this;
-      this.$axios.post('/ArticleHub/article', this.articleData)
-        .then(function(response) {
-          self.$message({
-            message: '已保存',
-            type: 'success'
+      var url = '';
+      if (this.articleData._randomID == undefined) {
+        this.$axios.put('/ArticleHub/article/aid/' + this.articleData.aid, this.articleData)
+          .then(function(response) {
+            self.$message({
+              message: '已保存',
+              type: 'success'
+            });
+          })
+          .catch(function(error) {
+            self.$message.error('无法保存文章');
+            console.log(error);
           });
-        })
-        .catch(function(error) {
-          self.$message.error('无法保存文章');
-          console.log(error);
-        });
+      } else {
+        this.$axios.post('/ArticleHub/article', this.articleData)
+          .then(function(response) {
+            self.listShow = false;
+            self.listShow = true;
+            self.$refs.list.getList();
+            self.$message({
+              message: '已保存',
+              type: 'success'
+            });
+          })
+          .catch(function(error) {
+            self.$message.error('无法保存文章');
+            console.log(error);
+          });
+      }
     },
     onEditorChange({
       quill,
@@ -92,14 +114,6 @@ export default {
       console.log('editor change!', quill, html, text)
       this._content = html
     }
-  },
-  computed: {
-    editor() {
-      return this.$refs.myQuillEditor.quill
-    }
-  },
-  mounted() {
-    console.log('this is current quill instance object', this.editor)
   }
 }
 </script>
@@ -117,7 +131,4 @@ body,
   margin: 0px;
 }
 
-.editArea {
-  /* visibility: hidden; */
-}
 </style>

@@ -5,7 +5,7 @@
       <topArea :info="info"/>
       <el-tabs v-model="userActiveTab">
         <el-tab-pane label="个人文章" name="articles">
-          <articleList label="" style="margin-top: -50px" />
+          <articleList label="个人文章" style="margin-top: -50px" />
         </el-tab-pane>
         <el-tab-pane label="最新评论" name="comments">
           <commentList style="margin-top: -50px" />

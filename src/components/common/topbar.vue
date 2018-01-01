@@ -65,7 +65,7 @@ export default {
     handleCommand: function(command) {
       switch (command) {
         case 'a':
-          location.href = "/user";
+          location.href = "/user?uid=" + this.getSessionUid();
           break;
         case 'b':
           location.href = "/topics?tab=2&pb=1&ps=10";

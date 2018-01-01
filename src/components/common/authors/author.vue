@@ -1,28 +1,30 @@
 <template>
-<el-row>
-  <el-col :span="5">
-    <div class="portrait">
-      <img :src="authorInfo.portraitURL" width="48px" height="48px" style="border-radius: 24px;">
-    </div>
-  </el-col>
-  <el-col :span="15">
-    <div class="info">
-      <span style="font-size: 14px;font-family: Microsoft YaHei;">{{ authorInfo.name }}</span>
-      <br>
-      <span style="font-size: 14px;color: #9c9999">&nbsp;{{ authorInfo.followNum }} 人关注</span>
-    </div>
-  </el-col>
-  <el-col :span="4">
-    <div class="follow">
-      <el-button type="text" v-show="!isfollow" @click="follow">
-        <b>+ 关注</b>
-      </el-button>
-      <el-button type="text" v-show="isfollow" @click="unfollow">
-        <i class="el-icon-remove-outline"></i>
-      </el-button>
-    </div>
-  </el-col>
-</el-row>
+<a style="text-decoration: none;color:black" :href="'/user?uid='+authorInfo.uid">
+  <el-row>
+    <el-col :span="5">
+      <div class="portrait">
+        <img :src="authorInfo.portraitURL" width="48px" height="48px" style="border-radius: 24px;">
+      </div>
+    </el-col>
+    <el-col :span="15">
+      <div class="info">
+        <span style="font-size: 14px;font-family: Microsoft YaHei;">{{ authorInfo.name }}</span>
+        <br>
+        <span style="font-size: 14px;color: #9c9999">&nbsp;{{ authorInfo.followNum }} 人关注</span>
+      </div>
+    </el-col>
+    <el-col :span="4">
+      <div class="follow">
+        <el-button type="text" v-show="!isfollow" @click="follow">
+          <b>+ 关注</b>
+        </el-button>
+        <el-button type="text" v-show="isfollow" @click="unfollow">
+          <i class="el-icon-remove-outline"></i>
+        </el-button>
+      </div>
+    </el-col>
+  </el-row>
+</a>
 </template>
 
 <script>

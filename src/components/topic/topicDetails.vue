@@ -2,14 +2,14 @@
 <el-main class="m-main">
   <el-row class="m-row">
     <el-col :span="16" style="width: 620px">
-      <topArea/>
-      <articleList label="热门文章"/>
+      <topArea :info="info"/>
+      <articleList label="专题文章"/>
     </el-col>
     <el-col :span="8" style="margin-left: 20px">
       <el-card style="text-align:left;min-height:200px">
         <span>专题公告</span><br><br>
-        <span v-if="desc==''">暂无公告</span>
-        <span>{{ desc }}</span>
+        <span v-if="info.desc==''">暂无公告</span>
+        <span>{{ info.desc }}</span>
       </el-card>
       <br>
     </el-col>
@@ -20,8 +20,9 @@
 <script>
 import topArea from './topArea.vue'
 import articleList from './../common/articles/articleList.vue'
+import qs from 'qs'
 import {
-  mapState
+  mapGetters
 } from 'vuex';
 export default {
   components: {
@@ -30,8 +31,27 @@ export default {
   },
   data() {
     return {
-      desc: '专题公告专题公告专题公告专题公告专题公告专题公告'
+      info: {}
     }
+  },
+  methods: {
+    ...mapGetters(['getSessionUid']),
+    getQueryString: function(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+  },
+  mounted: function() {
+    var self = this;
+    this.$axios.get("/ArticleHub/topicView/tid/" + this.getQueryString('tid'))
+      .then(function(response) {
+        self.info = response.data.data[0];
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 }
 </script>

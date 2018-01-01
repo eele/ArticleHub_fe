@@ -17,21 +17,35 @@ export default {
   props: ['mode'],
   data() {
     return {
-      tableData: [{
-        portraitURL: 'https://upload.jianshu.io/collections/images/16/computer_guy.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240',
-        username: '作者名称',
-        datetime: '2001-1-1 01:01:01',
-        article: '文章题目',
-        content: '文章一部分内容文章一部分内容文章',
-        agree: 12312,
-      }, {
-        portraitURL: 'https://upload.jianshu.io/collections/images/16/computer_guy.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240',
-        username: '作者名称',
-        datetime: '2001-1-1 01:01:01',
-        article: '文章题目',
-        content: '文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容文章一部分内容',
-        agree: 12312,
-      }]
+      tableData: []
+    }
+  },
+  mounted: function() {
+    var self = this;
+    if (this.mode == 'reading') {
+      this.$axios.get('/ArticleHub/commentDetail/aid/' + this.getQueryString("aid"))
+        .then(function(response) {
+          self.tableData = response.data.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    } else {
+      this.$axios.get('/ArticleHub/commentDetail/authorid/' + this.getQueryString("uid"))
+        .then(function(response) {
+          self.tableData = response.data.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  },
+  methods: {
+    getQueryString: function(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
     }
   }
 }

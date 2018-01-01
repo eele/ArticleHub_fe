@@ -12,7 +12,6 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="newArticle">删除</el-dropdown-item>
-            <el-dropdown-item command="renameCategory">投稿状态</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </template>

@@ -18,12 +18,12 @@
   </el-main>
   <el-footer style="padding: 0px; height:auto;">
 
-    <el-button type="text">
+    <!-- <el-button type="text">
       <span class="icon-favorite_border" style="font-weight: 900;font-size: 14px;color: #b9b7b7;">
         <b>&nbsp;{{ commentInfo.agree }}</b>
       </span>
     </el-button>
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp; -->
     <span class="datetime">{{ commentInfo.datetime }}</span>
   </el-footer>
 </el-container>

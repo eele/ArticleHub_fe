@@ -10,6 +10,7 @@
 
 <script>
 import commentItem from './commentItem.vue'
+import qs from 'qs'
 export default {
   components: {
     commentItem
@@ -21,26 +22,35 @@ export default {
     }
   },
   mounted: function() {
-    var self = this;
-    if (this.mode == 'reading') {
-      this.$axios.get('/ArticleHub/commentDetail/aid/' + this.getQueryString("aid"))
-        .then(function(response) {
-          self.tableData = response.data.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    } else {
-      this.$axios.get('/ArticleHub/commentDetail/authorid/' + this.getQueryString("uid"))
-        .then(function(response) {
-          self.tableData = response.data.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
+    this.getComments();
   },
   methods: {
+    getComments: function() {
+      var self = this;
+      if (this.mode == 'reading') {
+        this.$axios.get('/ArticleHub/commentDetail/aid/' + this.getQueryString("aid"), qs.stringify({
+          _orderby: 'datetime',
+          _order: 'desc'
+        }))
+          .then(function(response) {
+            self.tableData = response.data.data;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+        this.$axios.get('/ArticleHub/commentDetail/authorid/' + this.getQueryString("uid"), qs.stringify({
+          _orderby: 'datetime',
+          _order: 'desc'
+        }))
+          .then(function(response) {
+            self.tableData = response.data.data;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     getQueryString: function(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
       var r = window.location.search.substr(1).match(reg);

@@ -31,7 +31,7 @@
       <br>
       <el-button type="primary" @click="postComment">提交</el-button>
     </div>
-    <commentList mode="reading" />
+    <commentList mode="reading" ref="commentList" v-if="commentShow" />
   </div>
 </el-main>
 </template>
@@ -53,6 +53,7 @@ export default {
     return {
       collectText: '收藏本文',
       commentText: '',
+      commentShow: true,
       article: {}
     }
   },
@@ -66,19 +67,19 @@ export default {
         console.log(error);
       });
 
-      this.$axios.get('/ArticleHub/collect/uid/' + this.getSessionUid() + '?' + qs.stringify({
-          aid: this.getQueryString("aid")
-        }))
-        .then(function(response) {
-          if (response.data.data[0] == undefined) {
-            self.collectText = '收藏本文';
-          } else {
-            self.collectText = '取消收藏';
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    this.$axios.get('/ArticleHub/collect/uid/' + this.getSessionUid() + '?' + qs.stringify({
+        aid: this.getQueryString("aid")
+      }))
+      .then(function(response) {
+        if (response.data.data[0] == undefined) {
+          self.collectText = '收藏本文';
+        } else {
+          self.collectText = '取消收藏';
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
   methods: {
     ...mapGetters(['getSessionUid']),
@@ -92,10 +93,10 @@ export default {
       var self = this;
       if (this.collectText == '收藏本文') {
         this.$axios.post('/ArticleHub/collect', {
-          uid: this.getSessionUid(),
-          aid: this.getQueryString("aid"),
-          _randomID: 'cid'
-        })
+            uid: this.getSessionUid(),
+            aid: this.getQueryString("aid"),
+            _randomID: 'cid'
+          })
           .then(function(response) {
             self.collectText = '取消收藏';
           })
@@ -115,8 +116,41 @@ export default {
       }
     },
     postComment: function() {
-
-    }
+      var self = this;
+      this.$axios.post('/ArticleHub/comment', {
+          uid: this.getSessionUid(),
+          aid: this.getQueryString("aid"),
+          text: this.commentText,
+          datetime: this.getNowFormatDate(),
+          _randomID: 'cid'
+        })
+        .then(function(response) {
+          self.commentShow = false;
+          self.commentShow = true;
+          self.$refs.commentList.getComments();
+          self.commentText = '';
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    getNowFormatDate: function() {
+      var date = new Date();
+      var seperator1 = "-";
+      var seperator2 = ":";
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+        " " + date.getHours() + seperator2 + date.getMinutes() +
+        seperator2 + date.getSeconds();
+      return currentdate;
+    },
   }
 }
 </script>

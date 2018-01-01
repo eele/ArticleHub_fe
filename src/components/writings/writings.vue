@@ -5,10 +5,16 @@
   </el-aside>
   <el-main class="editArea" v-if="areaShow">
     <el-row>
-      <el-col :span="20">
+      <el-col :span="16">
         <el-input v-model="articleData.title" placeholder="请输入标题"></el-input>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="5">
+        <el-select v-model="articleData.tid" placeholder="加入专题...">
+          <el-option v-for="item in topics" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="3">
         &nbsp;
         <el-button type="primary" @click="save">保存文章</el-button>
       </el-col>
@@ -47,7 +53,23 @@ export default {
         datetime: this.getNowFormatDate(),
         _content: '',
         _randomID: 'aid'
-      }
+      },
+      topics: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
     }
   },
   methods: {
@@ -130,5 +152,4 @@ body,
   padding: 0px;
   margin: 0px;
 }
-
 </style>

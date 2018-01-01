@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import qs from 'qs'
 import {
   mapGetters
 } from 'vuex';
@@ -44,7 +43,7 @@ export default {
     ...mapGetters(['getSessionUid']),
     onSubmit: function() {
       var self = this;
-      this.$axios.put('/ArticleHub/user/uid/' + this.getSessionUid() + '?' + qs.stringify(this.form))
+      this.$axios.put('/ArticleHub/user/uid/' + this.getSessionUid(), this.form)
         .then(function(response) {
           self.$message({
             message: '成功保存用户信息',

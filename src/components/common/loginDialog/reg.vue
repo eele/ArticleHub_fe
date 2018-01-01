@@ -5,9 +5,9 @@
     <br><br>
     <el-input placeholder="邮箱" v-model="email" clearable></el-input>
     <br><br>
-    <el-input placeholder="设置密码" v-model="new_pws" clearable></el-input>
+    <el-input type="password" placeholder="设置密码" v-model="new_pws" clearable></el-input>
     <br><br>
-    <el-input placeholder="确认密码" v-model="confirm_pwd" clearable></el-input>
+    <el-input type="password" placeholder="确认密码" v-model="confirm_pwd" clearable></el-input>
   </div>
   <div class="button">
     <el-button type="primary" @click="reg" plain>

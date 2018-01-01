@@ -13,6 +13,9 @@
         <el-tab-pane label="收藏文章" name="favorites">
           <articleList label="." style="margin-top: -50px" />
         </el-tab-pane>
+        <el-tab-pane label="专题管理" name="topic" v-if="info.admin && getSessionUid()==getQueryString('uid')">
+          <topicTable/>
+        </el-tab-pane>
         <el-tab-pane label="个人信息" name="info" v-if="getSessionUid()==getQueryString('uid')">
           <userInfo/>
         </el-tab-pane>
@@ -39,6 +42,7 @@ import articleList from './../common/articles/articleList.vue'
 import userInfo from './userInfo.vue'
 import commentList from './../common/comments/commentList.vue'
 import authorList from './../common/authors/authorList.vue'
+import topicTable from './../admin/topicTable.vue'
 import qs from 'qs'
 import {
   mapGetters
@@ -50,7 +54,8 @@ export default {
     articleList,
     userInfo,
     commentList,
-    authorList
+    authorList,
+    topicTable
   },
   data() {
     return {

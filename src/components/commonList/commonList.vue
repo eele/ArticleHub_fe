@@ -9,7 +9,7 @@
       <el-tab-pane label="推荐专题" name="1">
         <topicList label="推荐专题" style="width: 100%;margin-top: -50px" />
       </el-tab-pane>
-      <el-tab-pane label="我订阅的" name="2" :disabled="getSessionUid() == null">
+      <el-tab-pane label="我订阅的" name="2" v-if="getSessionUid() != null">
         <topicList label="我订阅的" style="width: 100%;margin-top: -50px" />
       </el-tab-pane>
     </el-tabs>
@@ -17,7 +17,7 @@
       <el-tab-pane label="推荐作者" name="1">
         <authorList label="推荐作者" style="width: 100%;margin-top: -50px" />
       </el-tab-pane>
-      <el-tab-pane label="我关注的" name="2" :disabled="getSessionUid() == null">
+      <el-tab-pane label="我关注的" name="2" v-if="getSessionUid() != null">
         <authorList label="我关注的" style="width: 100%;margin-top: -50px" />
       </el-tab-pane>
     </el-tabs>

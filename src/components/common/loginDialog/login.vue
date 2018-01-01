@@ -3,7 +3,7 @@
   <div>
     <el-input placeholder="用户名" v-model="username" clearable></el-input>
     <br><br>
-    <el-input placeholder="密码" v-model="password" clearable></el-input>
+    <el-input type="password" placeholder="密码" v-model="password" clearable></el-input>
   </div>
   <div class="button">
     <el-button type="primary" @click="login">

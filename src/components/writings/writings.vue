@@ -9,10 +9,12 @@
         <el-input v-model="articleData.title" placeholder="请输入标题"></el-input>
       </el-col>
       <el-col :span="5">
-        <el-select v-model="articleData.tid" placeholder="加入专题...">
-          <el-option v-for="item in topics" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+        <el-tooltip class="item" effect="dark" content="选择一个专题" placement="bottom">
+          <el-select v-model="articleData.tid" placeholder="加入专题...">
+            <el-option v-for="item in topics" :key="item.tid" :label="item.name" :value="item.tid">
+            </el-option>
+          </el-select>
+        </el-tooltip>
       </el-col>
       <el-col :span="3">
         &nbsp;
@@ -57,18 +59,6 @@ export default {
       topics: [{
         value: '选项1',
         label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
       }],
     }
   },
@@ -136,6 +126,16 @@ export default {
       console.log('editor change!', quill, html, text)
       this._content = html
     }
+  },
+  mounted: function() {
+    var self = this;
+    this.$axios.get('/ArticleHub/topic/tid/%25')
+      .then(function(response) {
+        self.topics = response.data.data;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 }
 </script>

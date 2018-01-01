@@ -7,7 +7,9 @@
       </el-col>
       <el-col :span="21">
         <div style="height: 5px;"></div>
-        <span class="UserName">{{ info.name }}</span><br><br>
+        <span class="UserName">{{ info.name }}</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <el-tag size="small" v-if="info.admin">管理员</el-tag><br><br>
         <span class="articleNum">文章：{{ info.articleNum }}</span>
         &nbsp;&nbsp;&nbsp;
         <span>关注：{{ info.followNum }}</span>

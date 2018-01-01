@@ -1,30 +1,34 @@
 <template>
-<a style="text-decoration: none;color:black" :href="'/topic?tid='+topicInfo.tid">
-  <el-row>
-    <el-col :span="5">
-      <div class="portrait">
+<el-row>
+  <el-col :span="5">
+    <div class="portrait">
+      <a style="text-decoration: none;color:black" :href="'/topic?tid='+topicInfo.tid">
         <img :src="topicInfo.portraitURL" width="48px" height="48px" style="border-radius: 24px;">
-      </div>
-    </el-col>
-    <el-col :span="15">
-      <div class="info">
-        <span style="font-size: 14px;font-family: Microsoft YaHei;">{{ topicInfo.name }}</span>
-        <br>
-        <span style="font-size: 14px;color: #9c9999">&nbsp;{{ topicInfo.subscribeNum }} 人订阅</span>
-      </div>
-    </el-col>
-    <el-col :span="4" style="margin-top: 5px;">
-      <div class="subscribe">
-        <el-button type="text" v-show="!isSubscribed" @click="subscribe">
-          <b>+ 订阅</b>
-        </el-button>
-        <el-button type="text" v-show="isSubscribed" @click="unsubscribe">
-          <i class="el-icon-remove-outline"></i>
-        </el-button>
-      </div>
-    </el-col>
-  </el-row>
-</a>
+      </a>
+    </div>
+  </el-col>
+  <el-col :span="15">
+    <div class="info">
+      <span style="font-size: 14px;font-family: Microsoft YaHei;">
+        <a style="text-decoration: none;color:black" :href="'/topic?tid='+topicInfo.tid">
+          {{ topicInfo.name }}
+        </a>
+      </span>
+      <br>
+      <span style="font-size: 14px;color: #9c9999">&nbsp;{{ topicInfo.subscribeNum }} 人订阅</span>
+    </div>
+  </el-col>
+  <el-col :span="4" style="margin-top: 5px;">
+    <div class="subscribe">
+      <el-button type="text" v-show="!isSubscribed" @click="subscribe">
+        <b>+ 订阅</b>
+      </el-button>
+      <el-button type="text" v-show="isSubscribed" @click="unsubscribe">
+        <i class="el-icon-remove-outline"></i>
+      </el-button>
+    </div>
+  </el-col>
+</el-row>
 </template>
 
 <script>
@@ -50,11 +54,11 @@ export default {
     },
     subscribe: function() {
       var self = this;
-      this.$axios.post('/ArticleHub/subscribe' + '?' + qs.stringify({
+      this.$axios.post('/ArticleHub/subscribe', {
           sid: this.guid(),
           uid: this.getSessionUid(),
           tid: this.topicInfo.tid,
-        }))
+        })
         .then(function(response) {
           self.checkSubscribe();
         })

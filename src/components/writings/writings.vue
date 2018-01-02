@@ -18,7 +18,7 @@
       </el-col>
       <el-col :span="3">
         &nbsp;
-        <el-button type="primary" @click="save">保存文章</el-button>
+        <el-button type="primary" @click="save">发布文章</el-button>
       </el-col>
     </el-row>
     <quill-editor v-model="articleData._content" ref="myQuillEditor">
@@ -93,12 +93,12 @@ export default {
         this.$axios.put('/ArticleHub/article/aid/' + this.articleData.aid, this.articleData)
           .then(function(response) {
             self.$message({
-              message: '已保存',
+              message: '已发布',
               type: 'success'
             });
           })
           .catch(function(error) {
-            self.$message.error('无法保存文章');
+            self.$message.error('无法发布文章');
             console.log(error);
           });
       } else {
@@ -108,12 +108,12 @@ export default {
             self.listShow = true;
             self.$refs.list.getList();
             self.$message({
-              message: '已保存',
+              message: '已发布',
               type: 'success'
             });
           })
           .catch(function(error) {
-            self.$message.error('无法保存文章');
+            self.$message.error('无法发布文章');
             console.log(error);
           });
       }

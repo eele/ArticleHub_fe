@@ -85,7 +85,7 @@ export default {
       location.href = "/writings";
     },
     search: function() {
-      location.href = "/search?tab=1&pb=1&ps=10&q=%25" + this.keyword + "%25";
+      location.href = "/search?tab=1&pb=1&ps=10&q=" + this.keyword;
     }
   },
   store,
@@ -111,14 +111,16 @@ export default {
   },
   created: function() {
     this.activeIndex = location.pathname;
-    var self = this;
-    this.$axios.get('/ArticleHub/user/uid/' + this.getSessionUid())
-      .then(function(response) {
-        self.portraitURL = response.data.data[0].portraitURL;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    if (this.getSessionUid() != null) {
+      var self = this;
+      this.$axios.get('/ArticleHub/user/uid/' + this.getSessionUid())
+        .then(function(response) {
+          self.portraitURL = response.data.data[0].portraitURL;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 }
 </script>

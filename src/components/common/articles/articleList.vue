@@ -58,6 +58,14 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    } else if (location.pathname == '/search') {
+      this.$axios.get('/ArticleHub/articleDetail/title/%25' + this.getQueryString("q") + '%25?_content=')
+        .then(function(response) {
+          self.tableData = response.data.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     } else {
       this.$axios.get('/ArticleHub/articleCollected/uid/' + this.getQueryString("uid") + '?_content=')
         .then(function(response) {

@@ -1,5 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
+var $ = require('jquery');
+window.$ = $;
+
+axios.defaults.timeout = 5000;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// axios.defaults.baseURL = 'http://localhost:8080/ArticleHub';
 
 Vue.use(Vuex);
 
@@ -17,7 +24,11 @@ const mutations = {
     }
   },
   resetSessionUid() {
-    // state.sessionUid = null;
+    axios.delete('/ArticleHub/session/user/uid/uid')
+      .then(function(response) {})
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 }
 
@@ -26,7 +37,17 @@ const getters = {
     return state.loginDialogShow;
   },
   getSessionUid() {
-    return '123';
+    var uid = null;
+    $.ajax({
+      type: "get",
+      url: '/ArticleHub/session/user/uid/uid',
+      async: false,
+      dataType: "json",
+      success: function(data) {
+        uid = data.data;
+      }
+    });
+    return uid;
   }
 }
 

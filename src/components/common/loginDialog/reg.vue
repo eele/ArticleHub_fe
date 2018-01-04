@@ -1,11 +1,11 @@
 <template>
 <div>
   <div>
-    <el-input placeholder="昵称" v-model="username" clearable></el-input>
+    <el-input placeholder="昵称" v-model="user.username" clearable></el-input>
     <br><br>
-    <el-input placeholder="邮箱" v-model="email" clearable></el-input>
+    <el-input placeholder="邮箱" v-model="user.email" clearable></el-input>
     <br><br>
-    <el-input type="password" placeholder="设置密码" v-model="new_pws" clearable></el-input>
+    <el-input type="password" placeholder="设置密码" v-model="user.password" clearable></el-input>
     <br><br>
     <el-input type="password" placeholder="确认密码" v-model="confirm_pwd" clearable></el-input>
   </div>
@@ -26,16 +26,27 @@ export default {
   store,
   data() {
     return {
-      username: '',
-      email: '',
-      new_pws: '',
+      user: {
+        username: '',
+        email: '',
+        password: '',
+        portraitURL: '',
+        _randomID: 'uid'
+      },
       confirm_pwd: ''
     };
   },
   methods: {
     ...mapMutations(['switchLoginDialog']),
     reg: function() {
-      this.switchLoginDialog();
+      var self = this;
+      this.$axios.post('/ArticleHub/user', this.user)
+        .then(function(response) {
+          self.switchLoginDialog();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 }

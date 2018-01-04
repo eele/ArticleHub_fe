@@ -1,9 +1,9 @@
 <template>
 <div>
   <div>
-    <el-input placeholder="用户名" v-model="username" clearable></el-input>
+    <el-input placeholder="用户名" v-model="user.username" clearable></el-input>
     <br><br>
-    <el-input type="password" placeholder="密码" v-model="password" clearable></el-input>
+    <el-input type="password" placeholder="密码" v-model="user.password" clearable></el-input>
   </div>
   <div class="button">
     <el-button type="primary" @click="login">
@@ -20,14 +20,25 @@ import {
 export default {
   data() {
     return {
-      username: '',
-      password: ''
+      user: {
+        username: '',
+        password: ''
+      }
     };
   },
   methods: {
     ...mapMutations(['switchLoginDialog']),
     login: function() {
-      this.switchLoginDialog();
+      var self = this;
+      this.$axios.post('/ArticleHub/session/user', this.user)
+        .then(function(response) {
+          self.switchLoginDialog();
+          location.href = "/"
+        })
+        .catch(function(error) {
+          alert("用户名或密码错误")
+          console.log(error);
+        });
     }
   }
 }
